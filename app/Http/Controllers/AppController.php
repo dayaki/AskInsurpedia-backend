@@ -70,10 +70,32 @@ class AppController extends Controller {
     public function settings_photo() {}
     public function settings_category() {}
     public function settings_category_update() {}
-    public function settings_risks() {}
-    
+    public function settings_risks(Request $request) {
+        $data = [
+			'name'      => $request->name,
+			'risks'     => $request->risks,
+			'phone'     => $request->phone,
+			'email'     => $request->email,
+			'contact'   => $request->contact
+		];
+		
+		Mail::send('emails.risks-admin', ['data' => $data ], function ($message) use ($request) {
+			$message->from('no-reply@askinsurpedia.com', 'AskInsurpedia')
+				->to('me@sprypixels.com')
+				->subject('Cover My Risk Enquiry');
+		});
+				
+		Mail::send('emails.risks', ['data' => $data ], function ($message) use ($request) {
+			$message->from('no-reply@askinsurpedia.com', 'AskInsurpedia')
+				->to('me@sprypixels.com')
+				->subject('[Confirmation]: Cover My Risk Enquiry');
+		});
+		
+		return response()->json(['status' => 'success']);
+    }
+
     // Expert Application
-    public function settings_expert() {
+    public function settings_expert(Request $request) {
         $expert = new Expert;
         $expert->user_id = $request->user_id;
         $expert->bio = $request->bio;
