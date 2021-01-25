@@ -6,29 +6,30 @@ use App\Http\Controllers\AppController;
 
 // Auth
 Route::middleware('api')->post('/signup', [AppController::class, 'signup']);
-Route::middleware('api')->post('/login', 'AppController@login');
-Route::middleware('api')->post('/fb', 'AppController@login_fb');
-Route::middleware('api')->post('/google', 'AppController@login_google');
-Route::middleware('api')->post('/linkedin', 'AppController@login_linkedin');
-Route::middleware('api')->post('forgotpass', 'AppController@forgotpassword');
+Route::middleware('api')->post('/login', [AppController::class, 'login']);
+Route::middleware('api')->post('/forgot-password', [AppController::class, 'forgot_password']);
+
+// Route::middleware('api')->post('/fb', 'AppController@login_fb');
+// Route::middleware('api')->post('/google', 'AppController@login_google');
+// Route::middleware('api')->post('/linkedin', 'AppController@login_linkedin');
 
 // Questions
-Route::middleware('api')->post('/questions/post', 'AppController@postQuestions');
-Route::middleware('api')->get('/questions/all', 'AppController@getQuestions');
+Route::middleware('api')->get('/questions', [AppController::class, 'questions']);
+Route::middleware('api')->post('/question', [AppController::class, 'post_question']);
 
 // Comments
-Route::middleware('api')->post('/questions/comment', 'AppController@postComment');
+Route::middleware('api')->post('/question/comment', [AppController::class, 'post_comment']);
 
 // Articles
-Route::middleware('api')->get('/articles', 'AppController@articles');
+Route::middleware('api')->get('/articles', [AppController::class, 'articles']);
 
 // User Settings
-Route::middleware('api')->post('/user/password', 'AppController@password');
-Route::middleware('api')->post('/user/photo', 'AppController@user_photo');
-Route::middleware('api')->post('/user/category/update', 'AppController@update_category');
-Route::middleware('api')->post('/user/category/all', 'AppController@all_category');
-Route::middleware('api')->post('/risks', 'AppController@risks');
-Route::middleware('api')->post('/bexpert', 'AppController@bexpert');
+Route::middleware('api')->post('/settings/password', [AppController::class, 'settings_password']);
+Route::middleware('api')->post('/settings/photo', [AppController::class, 'settings_photo']);
+Route::middleware('api')->post('/settings/category', [AppController::class, 'settings_category']);
+Route::middleware('api')->post('/settings/category/update', [AppController::class, 'settings_category_update']);
+Route::middleware('api')->post('/settings/risk', [AppController::class, 'settings_risks']);
+Route::middleware('api')->post('/settings/be-expert', [AppController::class, 'settings_expert']);
 
 // Send Mail
-Route::middleware('api')->post('/mail/later', 'AppController@sendMail');
+Route::middleware('api')->get('/mailer/later', [AppController::class, 'send_mail']);

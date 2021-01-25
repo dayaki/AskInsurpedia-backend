@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AppController extends Controller {
 
@@ -29,10 +31,6 @@ class AppController extends Controller {
             $user->email    = $request->email;
             $user->password = Hash::make($request->password);  
 		    $user->save(); 
-		    
-		  //  Mail::send('emails.welcome', [], function ($message) use ($request) {
-		  //      $message->from('noreply@askinsurpedia.com', 'AskInsurpedia')->to($request->email)->subject('Welcome to AskInsurpedia');
-		  //  });
 		
 		    Auth::login($user);
 		    return response()->json([
