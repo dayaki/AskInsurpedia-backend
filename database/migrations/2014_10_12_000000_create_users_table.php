@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('category')->nullable();
             $table->string('password');
-            $table->string('photo')->nullable();
+            $table->longText('photo')->nullable();
             $table->string('social_id')->nullable();
             $table->string('onesignal')->nullable();
             $table->boolean('social_login')->default(false);

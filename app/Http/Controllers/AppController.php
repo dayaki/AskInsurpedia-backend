@@ -70,14 +70,19 @@ class AppController extends Controller {
     }
 
     // Change user Photo
-    public function settings_photo() {
+    public function settings_photo(Request $request) {
+        // return response()->json([
+		// 	'status' => 'success', 
+		// 	'data' => $request->all()
+		// ]);
+
         $user = User::find($request->user_id);
-		$user->photo = $request->photo;
+		$user->photo = "data:image/png;base64, " . $request->photo;
 		$user->save();
 
 		return response()->json([
 			'status' => 'success', 
-			'data' => $user
+            'data' => $user,
 		]);
     }
 
@@ -93,7 +98,7 @@ class AppController extends Controller {
 		]);
     }
     public function settings_category_update() {
-        
+
     }
 
     // Cover my risks enquiry
