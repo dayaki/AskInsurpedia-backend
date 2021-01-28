@@ -17,11 +17,9 @@ Route::middleware('api')->post('/forgot-password', [AppController::class, 'forgo
 Route::middleware('api')->get('/questions', [AppController::class, 'questions']);
 Route::middleware('api')->post('/question', [AppController::class, 'post_question']);
 
-// Comments
 Route::middleware('api')->post('/question/comment', [AppController::class, 'post_comment']);
-
-// Articles
 Route::middleware('api')->get('/articles', [AppController::class, 'articles']);
+Route::middleware('api')->get('/experts', [AppController::class, 'experts']);
 
 // User Settings
 Route::middleware('api')->post('/settings/password', [AppController::class, 'settings_password']);

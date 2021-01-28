@@ -6,7 +6,9 @@ use App\Models\User;
 use App\Models\Expert;
 use App\Models\Question;
 use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -58,6 +60,105 @@ class AppController extends Controller {
 			return response()->json(['status' => 'error', 'message' => 'Invalid email address or password']);
 		}
     }
+
+    /* Questions */
+    public function questions() {
+        $questions =  Question::with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
+        return response()->json([
+			'status' => 'success', 
+            'data' => $questions,
+		]);
+    }
+    public function post_question(Request $request) {
+		$user  = User::find($request->user)->first();
+        $users = User::where('category', 'like', '%' . $request->category . '%')->get();
+        
+		$question = new Question;
+		$question->user_id = $request->user;
+		$question->question = $request->question;
+		$question->category = $request->category;
+		// $question->posted = Carbon::now()->format('M j');
+		if ($request->anonymous) {
+			$question->anonymous = true;
+		}
+		$question->save();
+		
+		$questions = Question::with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
+
+		// Send mail to all interested users
+		// if (!empty($users)) {
+		//     $today = Carbon::now()->format('M j');
+		
+		//     foreach ($users as $data) {
+		//         if ($data->id !== $request->user) {
+		// 	        Mail::send('emails.questions', [
+		// 	            'today' => $today, 
+		// 	            'user' => $user, 
+		// 	            'data' => $data, 
+		// 	            'question' => $request->question,
+		// 	            'anonymous' => $request->anonymous
+		// 	        ], function ($message) use ($request, $data) {
+		// 	            $message->from('noreply@askinsurpedia.com', 'AskInsurpedia')->to($data->email, $data->fname .' '. $data->lname)->subject('New Question on AskInsurpedia');
+		// 	        });
+		//         }
+		
+		//     }
+		// };
+		
+		return response()->json([
+			'status' => 'success', 
+			'data' => $questions
+		]);
+
+    }
+    
+    // Reply to a question
+    public function post_comment(Request $request) {
+        $comment = new Comment;
+		$comment->user_id = $request->user;
+		$comment->question_id = $request->question;
+		$comment->comment = $request->comment;
+		$comment->save();
+		
+		$question = Question::with(['user'])->where('id', $request->question)->get();
+		$answer = Comment::with(['user'])->where('id', $comment->id)->get();
+		
+		$data = [
+		    'today' => Carbon::now()->format('M j'),
+		    'question' => $question,
+		    'answer' => $answer
+		];
+		
+		// Mail::send('emails.answered', ['data' => $data], function ($message) use ($data) {
+		// 	            $message->from('noreply@askinsurpedia.com', 'AskInsurpedia')
+		// 	            ->to($data['question'][0]->user->email, $data['question'][0]->user->fname)
+		// 	            ->subject('New answer to your question.');
+		// 	        });
+		
+        $questions = Question::with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
+        
+        return response()->json([
+			'status' => 'success', 
+			'data' => $questions
+		]);
+    }
+
+    // Articles
+    public function articles() {
+        $articles = Article::all();
+        return response()->json([
+			'status' => 'success', 
+			'data' => $articles
+		]);
+    }
+
+    public function experts() {
+        $experts = Experts::all();
+        return response()->json([
+			'status' => 'success', 
+			'data' => $experts
+		]);
+    }
     
     /* 
 
@@ -71,11 +172,6 @@ class AppController extends Controller {
 
     // Change user Photo
     public function settings_photo(Request $request) {
-        // return response()->json([
-		// 	'status' => 'success', 
-		// 	'data' => $request->all()
-		// ]);
-
         $user = User::find($request->user_id);
 		$user->photo = "data:image/png;base64, " . $request->photo;
 		$user->save();
@@ -97,9 +193,7 @@ class AppController extends Controller {
 			'data' => $user
 		]);
     }
-    public function settings_category_update() {
-
-    }
+    public function settings_category_update() {}
 
     // Cover my risks enquiry
     public function settings_risks(Request $request) {
