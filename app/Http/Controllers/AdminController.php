@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller {
     
+    // Auth
     public function login() {
         return view('admin/login');
     }
@@ -21,5 +22,15 @@ class AdminController extends Controller {
         return back()->withErrors([
             'invalid' => 'The provided credentials do not match our records.',
         ]);
+    }
+
+    // Dashboard
+    public function dashboard() {
+        // return view('admin/dashboard');
+        return redirect()->route('questions');
+    }
+
+    public function questions() {
+        return view('admin/questions');
     }
 }
