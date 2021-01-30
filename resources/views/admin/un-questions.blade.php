@@ -29,8 +29,8 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <h4 class="card-title">All Questions</h4>
-              <h6 class="card-subtitle">A listing of all anwsers on the platform.</h6>
+            <h4 class="card-title">All Unanswered Questions</h4>
+              <h6 class="card-subtitle">A listing of all anwsers with no answers yet.</h6>
               <br>
             @if (count($questions))
               <table id="projects" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="7" data-paging="true">

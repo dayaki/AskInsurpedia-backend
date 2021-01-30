@@ -156,19 +156,19 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="dashboard-classic.html" class="sidebar-link">
+                                    <a href="{{ route('admin.questions') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">All Questions </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="dashboard-analytical.html" class="sidebar-link">
+                                    <a href="{{ route('admin.questions.answered') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">Answered Questions </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="dashboard-cryptocurrency.html" class="sidebar-link">
+                                    <a href="{{ route('admin.questions.unanswered') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">Unanswered Questions</span>
                                     </a>

@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use App\Models\Expert;
+use App\Models\Question;
+use App\Models\Article;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
@@ -31,6 +36,26 @@ class AdminController extends Controller {
     }
 
     public function questions() {
-        return view('admin/questions');
+        $questions = Question::with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
+		return view('admin.questions')->with(['questions' => $questions]);
+    }
+    public function questions_answered() {
+        $questions = Question::has('comments')->with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
+		return view('admin.an-questions')->with(['questions' => $questions,]);
+    }
+    public function questions_unanswered() {
+        $questions = Question::has('comments', '=', 0)->with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
+        return view('admin.un-questions')->with(['questions' => $questions]);
+        
+    }
+
+	public function questions_un() {
+		$questions = Question::has('comments', '=', 0)->with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
+		return view('admin.questions')->with(['questions' => $questions, 'unanswered' => true]);
+	}
+    
+    public function question_view($id) {
+        $question = Question::find($id);
+        return view('admin.view-question')->with(['question' => $question]);
     }
 }
