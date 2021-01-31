@@ -12,8 +12,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('base/images/favicon.png') }}">
     <title>AskInsurpedia Admin Dashboard - @yield('title') </title>
     <!-- Custom CSS -->
-    <link href="../assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <link href="../assets/extra-libs/c3/c3.min.css" rel="stylesheet">
+    <link href="{{ asset('base/libs/chartist/dist/chartist.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('base/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('base/css/style.css') }}" rel="stylesheet">
     @yield('style')
@@ -183,13 +183,13 @@
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="dashboard-classic.html" class="sidebar-link">
+                                    <a href="{{ route('admin.articles') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">All Articles </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="dashboard-analytical.html" class="sidebar-link">
+                                    <a href="{{ route('admin.article.new') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">Post New Article </span>
                                     </a>
@@ -275,6 +275,7 @@
     <script src="{{ asset('base/extra-libs/c3/c3.min.js') }}"></script>
     <script src="{{ asset('base/libs/chart.js/dist/Chart.min.js') }}"></script>
     <script src="{{ asset('base/js/pages/dashboards/dashboard-clasic.js') }}"></script>
+    @yield('script')
 </body>
 
 </html>

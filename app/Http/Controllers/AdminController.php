@@ -35,6 +35,11 @@ class AdminController extends Controller {
         return redirect()->route('questions');
     }
 
+    /*
+	
+		Questions
+		
+	*/
     public function questions() {
         $questions = Question::with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
 		return view('admin.questions')->with(['questions' => $questions]);
@@ -48,14 +53,71 @@ class AdminController extends Controller {
         return view('admin.un-questions')->with(['questions' => $questions]);
         
     }
-
-	public function questions_un() {
-		$questions = Question::has('comments', '=', 0)->with(['user', 'comments.user'])->orderBy('id', 'desc')->get();
-		return view('admin.questions')->with(['questions' => $questions, 'unanswered' => true]);
-	}
-    
     public function question_view($id) {
         $question = Question::find($id);
         return view('admin.view-question')->with(['question' => $question]);
     }
+
+    /*
+	
+		Articles
+		
+	*/
+	public function articles() {
+		$articles = Article::all();
+		return view('admin.articles')->with(['articles' => $articles]);
+	}
+
+	public function new_article() {
+		return view('admin.new-article');
+	}
+
+	public function new_article_post(Request $request) {
+		request()->validate([
+			'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+        
+        $request->image->store('uploads', 'public');
+        $fileUrl = "http://127.0.0.1:8000/storage/uploads/" . $request->image->hashName();
+
+		$article = new Article;
+		$article->title = $request->title;
+		$article->content = $request->content;
+		$article->image = $fileUrl;
+		$article->save();
+
+		return redirect()->route('admin.articles')->with('success', 'Article published successfully...');
+    }
+    
+    public function view_article($id) {
+        $article = Article::find($id);
+		return view('admin.view-article')->with(['article' => $article]);
+    }   
+
+	public function edit_article($id) {
+		$article = Article::find($id);
+		return view('admin.edit-article')->with(['article' => $article]);
+	}
+
+	public function edit_article_post(Request $request) {
+		$article = Article::find($request->articleID);
+		$article->title = $request->title;
+		$article->content = $request->content;
+		if ($request->image) {
+            $request->image->store('uploads', 'public');
+            $fileUrl = "http://127.0.0.1:8000/storage/uploads/" . $request->image->hashName();
+			$article->image = $fileUrl;
+		}
+		$article->Save();
+
+		return redirect()->route('articles')->with('success', 'Article edited successfully...');
+	}
+
+	public function delete_article($id) {
+        $article = Article::find($id)->delete();
+		return redirect()->route('admin.articles');
+    }
+
+
+
 }
