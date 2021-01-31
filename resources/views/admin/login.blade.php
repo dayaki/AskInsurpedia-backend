@@ -57,7 +57,7 @@
             <div class="auth-box on-sidebar">
                 <div>
                     <div class="logo">
-                        <span class="db"><img src="{{ asset('base/images/logo-icon.png') }}" alt="logo" /></span>
+                        <span class="db"><img src="{{ asset('img/logo-black.png') }}" alt="logo" style="width: 80%;margin-bottom: 3rem;" /></span>
                         <h5 class="font-medium m-b-20">Administrative Dashboard</h5>
                     </div>
                     <!-- Form -->
@@ -83,7 +83,7 @@
                                 </div>
                                 <div class="form-group text-center ">
                                     <div class="col-xs-12 p-b-20 ">
-                                        <button href="dashboard-classic.html" class="btn btn-block btn-lg btn-info "
+                                        <button href="dashboard-classic.html" class="btn btn-block btn-lg btn-dark "
                                             type="submit ">SIGN IN</button>
                                     </div>
                                 </div>
