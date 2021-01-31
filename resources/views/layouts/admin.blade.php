@@ -16,6 +16,11 @@
     <link href="{{ asset('base/extra-libs/c3/c3.min.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('base/css/style.css') }}" rel="stylesheet">
+    <style>
+        .logo-icon img {
+            width: 80%;
+        }
+    </style>
     @yield('style')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,20 +61,19 @@
                         <b class="logo-icon">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{ asset('base/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
+                            <img src="{{ asset('img/logo-white.png') }}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo icon -->
-                            <img src="{{ asset('base/images/logo-light-icon.png') }}" alt="homepage"
-                                class="light-logo" />
+                            <img src="{{ asset('img/logo-white.png') }}" alt="homepage" class="light-logo" />
                         </b>
                         <!--End Logo icon -->
                         <!-- Logo text -->
-                        <span class="logo-text">
+                        {{-- <span class="logo-text">
                             <!-- dark Logo text -->
                             <img src="{{ asset('base/images/logo-text.png') }}" alt="homepage" class="dark-logo" />
                             <!-- Light Logo text -->
                             <img src="{{ asset('base/images/logo-light-text.png') }}" class="light-logo"
                                 alt="homepage" />
-                        </span>
+                        </span> --}}
                     </a>
                     <!-- ============================================================== -->
                     <!-- End Logo -->
@@ -148,7 +152,7 @@
                 <!-- Sidebar navigation-->
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" style="margin-bottom: 1rem;">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">
                                 <i class=" mdi mdi-apps"></i>
@@ -175,7 +179,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" style="margin-bottom: 1rem;">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">
                                 <i class="mdi mdi-folder-multiple-outline"></i>
@@ -197,7 +201,7 @@
                             </ul>
                         </li>
                         
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" style="margin-bottom: 1rem;">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">
                                 <i class="mdi mdi-account-outline"></i>
@@ -225,14 +229,14 @@
                             </ul>
                         </li>
 
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" style="margin-bottom: 1rem;">
                             <a class="sidebar-link waves-effect waves-dark" href="{{ route('admin.users') }}">
                                 <i class="mdi mdi-account-multiple-outline"></i>
                                 <span class="hide-menu">Users </span>
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
+                        <li class="sidebar-item" style="margin-bottom: 1rem;">
                             <a class="sidebar-link waves-effect waves-dark" href="{{ route('logout') }}">
                                 <i class="mdi mdi-lock-outline"></i>
                                 <span class="hide-menu">Log Out </span>
@@ -254,10 +258,9 @@
         <div class="page-wrapper">
             @yield('content')
 
-            {{-- <footer class="footer text-center">
-                Ideia Admin Dashboard Responsive Template <a
-                    href="https://themeforest.net/user/belostemas">Belostemas</a>
-            </footer> --}}
+            <footer class="footer text-center">
+                &copy; AskInsurpedia.com - {{ date("Y") }}
+            </footer>
         </div>
     </div>
 
