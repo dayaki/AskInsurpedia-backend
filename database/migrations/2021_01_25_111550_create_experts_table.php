@@ -20,6 +20,7 @@ class CreateExpertsTable extends Migration
             $table->string('specialty');
             $table->string('experience');
             $table->boolean('consultant')->default(false);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

@@ -19,7 +19,7 @@ class AdminController extends Controller {
         return view('admin/login');
     }
     public function login_post(Request $request) {
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'is_admin' => 1])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'is_admin' => true])) {
             $request->session()->regenerate();
 
             return redirect()->intended('dashboard');
@@ -28,6 +28,13 @@ class AdminController extends Controller {
             'invalid' => 'The provided credentials do not match our records.',
         ]);
     }
+
+    public function logout(Request $request) {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
+}
 
     // Dashboard
     public function dashboard() {
@@ -110,7 +117,7 @@ class AdminController extends Controller {
 		}
 		$article->Save();
 
-		return redirect()->route('articles')->with('success', 'Article edited successfully...');
+		return redirect()->route('admin.articles')->with('success', 'Article edited successfully...');
 	}
 	public function delete_article($id) {
         $article = Article::find($id)->delete();
@@ -135,6 +142,48 @@ class AdminController extends Controller {
         }
 
         return redirect()->route('admin.users');
+		
+    }
+    
+    /*
+	
+		Experts
+		
+	*/
+
+	public function experts() {
+		$users = User::where('is_expert', true)->get();
+		return view('admin.experts')->with(['users' => $users]);
+    }
+    public function expert_pending() {
+        $users = User::where('expert_status', 'pending')->where('is_expert', false)->get();
+		return view('admin.experts')->with(['users' => $users]);
+    }
+    public function expert_view($id) {
+        $user = User::with(['expert'])->find($id);
+		return view('admin.view-expert')->with(['user' => $user]);
+    }
+    public function expert_new() {
+        return view('admin.new-expert');
+    }
+    public function expert_new_post(Request $request) {
+        return $request->all();
+    }
+    public function expert_approve($id) {
+        $user = User::find($id);
+        $user->is_expert = true;
+        $user->expert_status = "approved";
+        $user->expert->is_active = true;
+        $user->save();
+        return redirect()->route('admin.experts')->with('success', 'Expert is approved.');
+    }
+	public function expert_delete($id) {
+        $user = User::find($id);
+        if ($user->is_expert) {
+            $user->delete();
+        }
+
+        return redirect()->route('admin.experts');
 		
 	}
 

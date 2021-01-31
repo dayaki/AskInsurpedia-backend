@@ -68,6 +68,7 @@
                             @endif
 
                             <form method="POST" action="{{ route('login_post') }}" class="form-horizontal m-t-20">
+                                @csrf
                                 <div class="form-group row">
                                     <div class="col-12 ">
                                         <input class="form-control form-control-lg" name="email" type="text" required

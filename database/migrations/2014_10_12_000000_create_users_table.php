@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->boolean('social_login')->default(false);
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_expert')->default(false);
+            $table->enum('expert_status', ['nothing', 'pending', 'approved'])->default('nothing');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

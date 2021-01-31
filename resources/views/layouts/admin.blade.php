@@ -151,7 +151,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">
-                                <i class=" mdi mdi-home-outline"></i>
+                                <i class=" mdi mdi-apps"></i>
                                 <span class="hide-menu">Questions </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -178,7 +178,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">
-                                <i class="mdi mdi-email-outline"></i>
+                                <i class="mdi mdi-folder-multiple-outline"></i>
                                 <span class="hide-menu">Articles </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
@@ -196,41 +196,44 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)">
-                                <i class="mdi mdi-email-outline"></i>
-                                <span class="hide-menu">Users </span>
-                            </a>
-                        </li>
+                        
                         <li class="sidebar-item">
                             <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)"
                                 aria-expanded="false">
-                                <i class="mdi mdi-email-outline"></i>
+                                <i class="mdi mdi-account-outline"></i>
                                 <span class="hide-menu">Experts </span>
                             </a>
                             <ul aria-expanded="false" class="collapse  first-level">
                                 <li class="sidebar-item">
-                                    <a href="dashboard-classic.html" class="sidebar-link">
+                                    <a href="{{ route('admin.experts') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">Approved Expert </span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="dashboard-analytical.html" class="sidebar-link">
+                                    <a href="{{ route('admin.expert.pending') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">Pending Expert</span>
                                     </a>
                                 </li>
                                 <li class="sidebar-item">
-                                    <a href="dashboard-analytical.html" class="sidebar-link">
+                                    <a href="{{ route('admin.expert.new') }}" class="sidebar-link">
                                         <i class="mdi mdi-minus"></i>
                                         <span class="hide-menu">Add New Expert</span>
                                     </a>
                                 </li>
                             </ul>
                         </li>
+
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{ route('admin.users') }}">
+                                <i class="mdi mdi-account-multiple-outline"></i>
+                                <span class="hide-menu">Users </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{ route('logout') }}">
                                 <i class="mdi mdi-lock-outline"></i>
                                 <span class="hide-menu">Log Out </span>
                             </a>

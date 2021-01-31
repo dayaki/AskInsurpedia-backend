@@ -29,6 +29,10 @@ class User extends Authenticatable {
     ];
 
     public function comments() {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany(Comment::class);
+    }
+
+    public function expert() {
+        return $this->hasOne(Expert::class);
     }
 }
