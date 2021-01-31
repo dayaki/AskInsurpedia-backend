@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('onesignal')->nullable();
             $table->boolean('social_login')->default(false);
             $table->boolean('is_admin')->default(false);
+            $table->boolean('is_expert')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

@@ -112,11 +112,31 @@ class AdminController extends Controller {
 
 		return redirect()->route('articles')->with('success', 'Article edited successfully...');
 	}
-
 	public function delete_article($id) {
         $article = Article::find($id)->delete();
 		return redirect()->route('admin.articles');
     }
+
+    /*
+	
+		Users
+		
+	*/
+
+	public function users() {
+		$users = User::where('is_admin', false)->where('is_expert', false)->get();
+		return view('admin.users')->with(['users' => $users]);
+	}
+
+	public function user_delete($id) {
+        $user = User::find($id);
+        if (!$user->is_admin && !$user->is_expert) {
+            $user->delete();
+        }
+
+        return redirect()->route('admin.users');
+		
+	}
 
 
 

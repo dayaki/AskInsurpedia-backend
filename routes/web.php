@@ -29,9 +29,9 @@ Route::post('/articles/edit', [AdminController::class, 'edit_article_post'])->na
 Route::get('/articles/delete/{id}', [AdminController::class, 'delete_article'])->name('admin.article.delete');
 
 
-// // Users
-// Route::get('/admin/users', ['as' => 'users', 'uses' => 'WebController@users'])->middleware('auth');
-// Route::get('/admin/users/rm/{id}', ['as' => 'deleteUser', 'uses' => 'WebController@user_delete'])->middleware('auth');
+// Users
+Route::get('/users', [AdminController::class, 'users'])->name('admin.users');
+Route::get('/users/delete/{id}', [AdminController::class, 'user_delete'])->name('admin.user.delete');
 
 // Settings
 // Route::get('/admin/settings', ['as' => 'settings', 'uses' => 'WebController@settings'])->middleware('auth');un-questions.blade.php
